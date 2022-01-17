@@ -63,9 +63,12 @@ class TextSystem(object):
             logger.debug(f"{bno}, {rec_res[bno]}")
         self.crop_image_res_index += bbox_num
 
-    def __call__(self, img, cls=True):
+    def __call__(self, img, cls=True, boxes_elapse=None):
         ori_im = img.copy()
-        dt_boxes, elapse = self.text_detector(img)
+        if boxes_elapse:
+            dt_boxes, elapse = boxes_elapse
+        else:
+            dt_boxes, elapse = self.text_detector(img)
 
         logger.debug("dt_boxes num : {}, elapse : {}".format(
             len(dt_boxes), elapse))
